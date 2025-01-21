@@ -3,6 +3,10 @@ A basic 2D shoot 'em up style game made with SDL.
 
 This version of the game is very incomplete and only has basic movement logic implemented for the player.
 
+## Controls
+
+Arrow keys: Move Player
+
 ## TODO
 
 - Implement player firing
