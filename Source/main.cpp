@@ -8,16 +8,16 @@
 #include "draw.h"
 #include "init.h"
 #include "input.h"
+#include "structs.h"
 
 int main(int argc, char* argv[])
 {
     const Application app = init_sdl();
-    SDL_Texture* texture = load_bitmap(app.renderer);
+    SDL_Texture* player_texture = load_bitmap(app.renderer, "resources/spaceShips_001.bmp");
 
     PressedInputs pressed_inputs = PressedInputs();
 
-    int player_x = 100;
-    int player_y = 100;
+    Entity player = Entity(100, 100, 4, 4);
     
     while (true)
     {
@@ -28,14 +28,22 @@ int main(int argc, char* argv[])
 
         if (pressed_inputs.up)
         {
-            player_y -= 4;
+            player.y -= player.dy;
         }
         if (pressed_inputs.down)
         {
-            player_y += 4;
+            player.y += player.dy;
+        }
+        if (pressed_inputs.left)
+        {
+            player.x -= player.dx;
+        }
+        if (pressed_inputs.right)
+        {
+            player.x += player.dx;
         }
 
-        blit(app.renderer, texture, player_x, player_y);
+        blit(app.renderer, player_texture, player.x, player.y);
 
         SDL_RenderPresent(app.renderer);
 
