@@ -8,6 +8,7 @@ struct PressedInputs
     bool right = false;
     bool down = false;
     bool left = false;
+    bool fire = false;
 };
 
 void handle_input(PressedInputs&);

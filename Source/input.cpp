@@ -34,6 +34,18 @@ void handle_key_down(SDL_KeyboardEvent *event, PressedInputs &pressed_inputs)
         {
             pressed_inputs.down = true;
         }
+        if (event->keysym.scancode == SDL_SCANCODE_LEFT)
+        {
+            pressed_inputs.left = true;
+        }
+        if (event->keysym.scancode == SDL_SCANCODE_RIGHT)
+        {
+            pressed_inputs.right = true;
+        }
+        if (event->keysym.scancode == SDL_SCANCODE_SPACE)
+        {
+            pressed_inputs.fire = true;
+        }
     }
 }
 
@@ -48,6 +60,18 @@ void handle_key_up(SDL_KeyboardEvent *event, PressedInputs &pressed_inputs)
         if (event->keysym.scancode == SDL_SCANCODE_DOWN)
         {
             pressed_inputs.down = false;
+        }
+        if (event->keysym.scancode == SDL_SCANCODE_LEFT)
+        {
+            pressed_inputs.left = false;
+        }
+        if (event->keysym.scancode == SDL_SCANCODE_RIGHT)
+        {
+            pressed_inputs.right = false;
+        }
+        if (event->keysym.scancode == SDL_SCANCODE_SPACE)
+        {
+            pressed_inputs.fire = false;
         }
     }
 }
