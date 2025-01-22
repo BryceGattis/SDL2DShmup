@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include <SDL_events.h>
+#include <SDL_render.h>
+
+#include "structs.h"
 
 struct PressedInputs
 {
@@ -15,3 +18,5 @@ void handle_input(PressedInputs&);
 
 void handle_key_down(SDL_KeyboardEvent*, PressedInputs&);
 void handle_key_up(SDL_KeyboardEvent*, PressedInputs&);
+
+void fire_bullet(SDL_Texture*, Entity, BulletList&);

@@ -1,0 +1,1 @@
+﻿#define PLAYER_BULLET_SPEED 16

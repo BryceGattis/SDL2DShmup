@@ -1,6 +1,10 @@
 ﻿#include "input.h"
 
+#include <iostream>
+
+#include "defs.h"
 #include "SDL.h"
+#include "structs.h"
 
 void handle_input(PressedInputs &pressed_inputs)
 {
@@ -73,5 +77,23 @@ void handle_key_up(SDL_KeyboardEvent *event, PressedInputs &pressed_inputs)
         {
             pressed_inputs.fire = false;
         }
+    }
+}
+
+void fire_bullet(SDL_Texture* bullet_texture, Entity player, BulletList &bullet_list)
+{
+    // TODO: Don't forget to clean up this memory when the bullets start moving.
+    Entity* bullet = new Entity(player.x, player.y, PLAYER_BULLET_SPEED, 0, bullet_texture);
+
+    if (bullet_list.tail)
+    {
+        bullet_list.tail->next = bullet;
+    }
+
+    bullet_list.tail = bullet;
+
+    if (!bullet_list.head)
+    {
+        bullet_list.head = bullet;
     }
 }
