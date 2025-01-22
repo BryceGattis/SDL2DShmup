@@ -6,6 +6,7 @@ This version of the game is very incomplete and only has basic movement logic im
 ## Controls
 
 Arrow keys: Move Player
+
 Spacebar: Fire
 
 ## TODO
