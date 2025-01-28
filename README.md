@@ -31,3 +31,4 @@ For the .exe to launch on Windows as is, you need to copy the SDL `SDL2.dll` fil
 The game's graphical assets are from the [Kenny Asset Packs](https://kenney.nl/assets). Specifically I'm using:
 
 - [Kenny Space Shooter Extension](https://kenney.nl/assets/space-shooter-extension)
+- [Kenny Space Shooter Redux](https://kenney.nl/assets/space-shooter-redux)
