@@ -4,6 +4,7 @@
 # Visual Studio
 *.vcxproj*
 *.sln
+*.DotSettings.user
 
 # Cmake
 CMakeFiles/
