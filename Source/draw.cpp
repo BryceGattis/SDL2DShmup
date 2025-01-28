@@ -15,16 +15,16 @@ SDL_Texture* load_bitmap(SDL_Renderer* renderer, std::string path)
     return texture;
 }
 
-void blit(SDL_Renderer* renderer, SDL_Texture* texture, int x, int y)
+void blit(SDL_Renderer* renderer, Entity entity)
 {
     SDL_Rect dest;
 
-    dest.x = x;
-    dest.y = y;
+    dest.x = entity.x;
+    dest.y = entity.y;
     // Obtain the width and height of the texture.
-    SDL_QueryTexture(texture, nullptr, nullptr, &dest.w, &dest.h);
+    SDL_QueryTexture(entity.texture, nullptr, nullptr, &dest.w, &dest.h);
 
     // Use RenderCopyEx so we can rotate the texture 90 degrees counterclockwise.
-    SDL_RenderCopyEx(renderer, texture, nullptr, &dest, -90, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, entity.texture, nullptr, &dest, entity.texture_angle, nullptr, SDL_FLIP_NONE);
 }
 

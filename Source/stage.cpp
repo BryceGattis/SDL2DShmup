@@ -12,7 +12,7 @@ void draw(Application app, Entity player, BulletList bullets)
 
 void draw_player(Application app, Entity player)
 {
-    blit(app.renderer, player.texture, player.x, player.y);
+    blit(app.renderer, player);
 }
 
 void draw_bullets(Application app, BulletList bullets)
@@ -22,7 +22,7 @@ void draw_bullets(Application app, BulletList bullets)
     Entity* bullet = bullets.head;
     while (bullet)
     {
-        blit(app.renderer, bullet->texture, bullet->x, bullet->y);
+        blit(app.renderer, *bullet);
         bullet = bullet->next;
     }
 }

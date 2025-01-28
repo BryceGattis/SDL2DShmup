@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     PressedInputs pressed_inputs = PressedInputs();
     BulletList bullets = BulletList();
 
-    Entity player = Entity(100, 100, 4, 4, player_texture);
+    Entity player = Entity(100, 100, 4, 4, player_texture, -90);
     
     while (true)
     {

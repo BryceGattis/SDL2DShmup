@@ -2,6 +2,8 @@
 #include <SDL_render.h>
 #include <string>
 
-SDL_Texture* load_bitmap(SDL_Renderer*, std::string);
+#include "structs.h"
 
-void blit(SDL_Renderer*, SDL_Texture*, int, int);
+SDL_Texture* load_bitmap(SDL_Renderer* renderer, std::string path);
+
+void blit(SDL_Renderer* renderer, Entity entity);
