@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
         {
             fire_bullet(bullet_texture, player, bullets);
         }
+        logic(app, bullets);
         draw(app, player, bullets);
 
         SDL_RenderPresent(app.renderer);
