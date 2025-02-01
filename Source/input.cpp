@@ -81,20 +81,20 @@ void handle_key_up(SDL_KeyboardEvent *event, PressedInputs &pressed_inputs)
     }
 }
 
-void fire_bullet(SDL_Texture* bullet_texture, Entity player, EntityList &bullet_list)
+void fire_bullet(SDL_Texture* bullet_texture, Entity player, Stage &stage)
 {
     // TODO: Don't forget to clean up this memory when the bullets start moving.
     Entity* bullet = new Entity(player.x, player.y, PLAYER_BULLET_SPEED, 0, bullet_texture, 90);
-
-    if (bullet_list.tail)
+    
+    if (stage.bullets.tail)
     {
-        bullet_list.tail->next = bullet;
+        stage.bullets.tail->next = bullet;
     }
 
-    bullet_list.tail = bullet;
+    stage.bullets.tail = bullet;
 
-    if (!bullet_list.head)
+    if (!stage.bullets.head)
     {
-        bullet_list.head = bullet;
+        stage.bullets.head = bullet;
     }
 }

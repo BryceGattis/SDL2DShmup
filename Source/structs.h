@@ -18,3 +18,9 @@ struct EntityList
     Entity *head;
     Entity *tail;
 };
+
+struct Stage
+{
+    EntityList bullets = EntityList();
+    EntityList fighters = EntityList();
+};
