@@ -3,10 +3,10 @@
 #include "defs.h"
 #include "draw.h"
 
-void logic(Entity &player, SDL_Texture* bullet_texture, Stage &stage, PressedInputs pressed_inputs)
+void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
 {
     spawn_enemies(stage);
-    do_player(player, bullet_texture, stage, pressed_inputs);
+    do_player(player, stage, pressed_inputs);
     do_bullets(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
@@ -37,7 +37,7 @@ void spawn_enemies(Stage& stage)
 }
 
 
-void do_player(Entity &player, SDL_Texture* bullet_texture, Stage &stage, PressedInputs pressed_inputs)
+void do_player(Entity &player, Stage &stage, PressedInputs pressed_inputs)
 {
     if (pressed_inputs.up)
     {
@@ -57,7 +57,7 @@ void do_player(Entity &player, SDL_Texture* bullet_texture, Stage &stage, Presse
     }
     if (pressed_inputs.fire)
     {
-        fire_bullet(bullet_texture, player, stage);
+        fire_bullet(player, stage);
     }
 }
 

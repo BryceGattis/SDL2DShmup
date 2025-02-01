@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
         
         handle_input(pressed_inputs);
 
-        logic(player, bullet_texture, stage, pressed_inputs);
+        logic(player, stage, pressed_inputs);
         draw(app, player, stage);
 
         SDL_RenderPresent(app.renderer);
