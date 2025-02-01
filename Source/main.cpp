@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     SDL_Texture* bullet_texture = load_bitmap(app.renderer, "resources/spaceMissiles_037.bmp");
 
     PressedInputs pressed_inputs = PressedInputs();
-    BulletList bullets = BulletList();
+    EntityList bullets = EntityList();
 
     Entity player = Entity(100, 100, 4, 4, player_texture, -90);
     
@@ -29,27 +29,7 @@ int main(int argc, char* argv[])
         
         handle_input(pressed_inputs);
 
-        if (pressed_inputs.up)
-        {
-            player.y -= player.dy;
-        }
-        if (pressed_inputs.down)
-        {
-            player.y += player.dy;
-        }
-        if (pressed_inputs.left)
-        {
-            player.x -= player.dx;
-        }
-        if (pressed_inputs.right)
-        {
-            player.x += player.dx;
-        }
-        if (pressed_inputs.fire)
-        {
-            fire_bullet(bullet_texture, player, bullets);
-        }
-        logic(app, bullets);
+        logic(app, player, bullet_texture, bullets, pressed_inputs);
         draw(app, player, bullets);
 
         SDL_RenderPresent(app.renderer);

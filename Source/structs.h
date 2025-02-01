@@ -13,7 +13,7 @@ struct Entity
     x(x), y(y), dx(dx), dy(dy), texture(texture), texture_angle(texture_angle) {}
 };
 
-struct BulletList
+struct EntityList
 {
     Entity *head;
     Entity *tail;

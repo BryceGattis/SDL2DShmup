@@ -19,4 +19,4 @@ void handle_input(PressedInputs&);
 void handle_key_down(SDL_KeyboardEvent*, PressedInputs&);
 void handle_key_up(SDL_KeyboardEvent*, PressedInputs&);
 
-void fire_bullet(SDL_Texture*, Entity, BulletList&);
+void fire_bullet(SDL_Texture*, Entity, EntityList&);

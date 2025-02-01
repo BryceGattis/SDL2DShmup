@@ -1,17 +1,41 @@
-﻿#include <iostream>
-
-#include "stage.h"
+﻿#include "stage.h"
 
 #include "defs.h"
 #include "draw.h"
 
-void logic(Application app, BulletList &bullets)
+void logic(Application app, Entity &player, SDL_Texture* bullet_texture, EntityList &bullets, PressedInputs pressed_inputs)
 {
+    do_player(app, player, bullet_texture, bullets, pressed_inputs);
     do_bullets(app, bullets);
 }
 
+void do_player(Application app, Entity &player, SDL_Texture* bullet_texture, EntityList &bullets, PressedInputs pressed_inputs)
+{
+    if (pressed_inputs.up)
+    {
+        player.y -= player.dy;
+    }
+    if (pressed_inputs.down)
+    {
+        player.y += player.dy;
+    }
+    if (pressed_inputs.left)
+    {
+        player.x -= player.dx;
+    }
+    if (pressed_inputs.right)
+    {
+        player.x += player.dx;
+    }
+    if (pressed_inputs.fire)
+    {
+        fire_bullet(bullet_texture, player, bullets);
+    }
+}
 
-void do_bullets(Application app, BulletList &bullets)
+
+
+void do_bullets(Application app, EntityList &bullets)
 {
     if (!bullets.head)
         return;
@@ -44,7 +68,7 @@ void do_bullets(Application app, BulletList &bullets)
 }
 
 
-void draw(Application app, Entity player, BulletList bullets)
+void draw(Application app, Entity player, EntityList bullets)
 {
     draw_player(app, player);
     draw_bullets(app, bullets);
@@ -55,7 +79,7 @@ void draw_player(Application app, Entity player)
     blit(app.renderer, player);
 }
 
-void draw_bullets(Application app, BulletList bullets)
+void draw_bullets(Application app, EntityList bullets)
 {
     if (!bullets.head)
         return;
