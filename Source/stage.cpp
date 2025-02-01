@@ -8,6 +8,7 @@ void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
     spawn_enemies(stage);
     do_player(player, stage, pressed_inputs);
     do_bullets(stage);
+    do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
 }
@@ -19,7 +20,7 @@ void spawn_enemies(Stage& stage)
         stage.spawn_timer--;
         return;
     }
-    stage.spawn_timer = 8;
+    stage.spawn_timer = 40;
 
     Entity* enemy = new Entity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY], 90);
 
@@ -71,7 +72,7 @@ void do_bullets(Stage &stage)
     {
         bullet->x += bullet->dx;
         bullet->y += bullet->dy;
-        if (bullet->x > SCREEN_WIDTH)
+        if (bullet->x > SCREEN_WIDTH || bullet->health == 0)
         {
             if (!prev)
             {
@@ -93,6 +94,28 @@ void do_bullets(Stage &stage)
     }
 }
 
+void do_collision_checks(Stage& stage)
+{
+    if (!stage.bullets.head)
+        return;
+    Entity* bullet = stage.bullets.head;
+    while (bullet)
+    {
+        Entity* fighter = stage.fighters.head;
+        while (fighter)
+        {
+            if (bullet->collides_with(fighter))
+            {
+                bullet->health = 0;
+                fighter->health = 0;
+            }
+            fighter = fighter->next;
+        }
+        bullet = bullet->next;
+    }
+}
+
+
 void do_enemy_spawner(Stage& stage)
 {
     stage.enemy_spawner->y += stage.enemy_spawner->dy;
@@ -112,7 +135,7 @@ void do_fighters(Stage& stage)
     {
         fighter->x += fighter->dx;
         fighter->y += fighter->dy;
-        if (fighter->x > SCREEN_WIDTH || fighter->x < 0)
+        if (fighter->x > SCREEN_WIDTH || fighter->x < 0 || fighter->health == 0)
         {
             if (!prev)
             {
