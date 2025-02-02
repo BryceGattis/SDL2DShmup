@@ -13,6 +13,7 @@ struct Entity
     int dx;
     int dy;
     int health = 1;
+    int reload = 0;
     SDL_Texture* texture;
     int texture_angle;
     Entity* next = nullptr;

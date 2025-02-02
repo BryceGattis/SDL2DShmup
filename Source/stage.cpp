@@ -40,6 +40,10 @@ void spawn_enemies(Stage& stage)
 
 void do_player(Entity &player, Stage &stage, PressedInputs pressed_inputs)
 {
+    if (player.reload > 0)
+    {
+        player.reload--;
+    }
     if (pressed_inputs.up)
     {
         player.y -= player.dy;
@@ -56,7 +60,7 @@ void do_player(Entity &player, Stage &stage, PressedInputs pressed_inputs)
     {
         player.x += player.dx;
     }
-    if (pressed_inputs.fire)
+    if (pressed_inputs.fire && player.reload == 0)
     {
         fire_bullet(player, stage);
     }
