@@ -45,8 +45,8 @@ struct Entity
 
 struct EntityList
 {
-    Entity *head;
-    Entity *tail;
+    Entity *head = nullptr;
+    Entity *tail = nullptr;
 };
 
 struct Stage

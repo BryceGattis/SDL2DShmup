@@ -74,6 +74,10 @@ void do_bullets(Stage &stage)
         bullet->y += bullet->dy;
         if (bullet->x > SCREEN_WIDTH || bullet->health == 0)
         {
+            if (!bullet->next)
+            {
+                stage.bullets.tail = prev;
+            }
             if (!prev)
             {
                 stage.bullets.head = bullet->next;
@@ -137,6 +141,10 @@ void do_fighters(Stage& stage)
         fighter->y += fighter->dy;
         if (fighter->x > SCREEN_WIDTH || fighter->x < 0 || fighter->health == 0)
         {
+            if (!fighter->next)
+            {
+                stage.fighters.tail = prev;
+            }
             if (!prev)
             {
                 stage.fighters.head = fighter->next;
