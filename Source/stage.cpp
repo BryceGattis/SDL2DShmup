@@ -11,6 +11,7 @@ void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
     do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
+    constrain_player(player);
 }
 
 void spawn_enemies(Stage& stage)
@@ -168,6 +169,27 @@ void do_fighters(Stage& stage)
         }
     }
 }
+
+void constrain_player(Entity& player)
+{
+    if (player.x < 0)
+    {
+        player.x = 0;
+    }
+    if (player.x + player.width > SCREEN_WIDTH)
+    {
+        player.x = SCREEN_WIDTH - player.width;
+    }
+    if (player.y < 0)
+    {
+        player.y = 0;
+    }
+    if (player.y + player.height > SCREEN_HEIGHT)
+    {
+        player.y = SCREEN_HEIGHT - player.height;
+    }
+}
+
 
 
 
