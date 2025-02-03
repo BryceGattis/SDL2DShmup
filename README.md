@@ -1,7 +1,7 @@
 # SDL2DShmup
 A basic 2D shoot 'em up style game made with SDL.
 
-This version of the game is very incomplete and only has basic movement logic implemented for the player.
+This version of the game is incomplete as enemies do not yet have the ability to shoot back at the player.
 
 ## Controls
 
@@ -11,8 +11,6 @@ Spacebar: Fire
 
 ## TODO
 
-- Implement player firing
-- Implement enemies
 - Implement enemies shooting
 - Scoring
 - Main Menu
