@@ -21,8 +21,8 @@ void blit(SDL_Renderer* renderer, Entity entity)
 
     dest.x = entity.x;
     dest.y = entity.y;
-    // Obtain the width and height of the texture.
-    SDL_QueryTexture(entity.texture, nullptr, nullptr, &dest.w, &dest.h);
+    dest.w = entity.width;
+    dest.h = entity.height;
 
     // Use RenderCopyEx so we can rotate the texture 90 degrees counterclockwise.
     SDL_RenderCopyEx(renderer, entity.texture, nullptr, &dest, entity.texture_angle, nullptr, SDL_FLIP_NONE);
