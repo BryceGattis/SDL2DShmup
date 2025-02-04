@@ -2,6 +2,8 @@
 #include <map>
 #include <ostream>
 
+#include <SDL_render.h>
+
 #include "enums.h"
 
 struct Entity

@@ -11,6 +11,7 @@ void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
     do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
+    do_enemies(player, stage);
     constrain_player(player);
 }
 
@@ -169,6 +170,36 @@ void do_fighters(Stage& stage)
         }
     }
 }
+
+void do_enemies(Entity player, Stage& stage)
+{
+    if (!stage.fighters.head)
+        return;
+    Entity* fighter = stage.fighters.head;
+    while (fighter)
+    {
+        enemy_fire_bullet(player, fighter, stage);
+        fighter = fighter->next;
+    }
+}
+
+void enemy_fire_bullet(Entity player, Entity *enemy, Stage &stage)
+{
+    Entity* bullet = new Entity(enemy->x, enemy->y, 0, 0, stage.textures[EntityType::ENEMY_BULLET], 90);
+    
+    if (stage.bullets.tail)
+    {
+        stage.bullets.tail->next = bullet;
+    }
+
+    stage.bullets.tail = bullet;
+
+    if (!stage.bullets.head)
+    {
+        stage.bullets.head = bullet;
+    }
+}
+
 
 void constrain_player(Entity& player)
 {

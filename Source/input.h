@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <SDL_events.h>
-#include <SDL_render.h>
 
 #include "structs.h"
 
