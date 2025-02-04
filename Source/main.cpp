@@ -21,9 +21,9 @@ int main(int argc, char* argv[])
     SDL_Texture* enemy_texture = load_bitmap(app.renderer, "resources/enemyBlack1.bmp");
     
     std::map<EntityType, SDL_Texture*> textures;
-    textures[EntityType::PLAYER] = player_texture;
-    textures[EntityType::BULLET] = bullet_texture;
-    textures[EntityType::ENEMY] = enemy_texture;
+    textures[EntityType::PLAYER_FIGHTER] = player_texture;
+    textures[EntityType::PLAYER_BULLET] = bullet_texture;
+    textures[EntityType::ENEMY_FIGHTER] = enemy_texture;
 
     PressedInputs pressed_inputs = PressedInputs();
 

@@ -2,7 +2,8 @@
 
 enum EntityType
 {
-    PLAYER,
-    ENEMY,
-    BULLET
+    PLAYER_FIGHTER,
+    ENEMY_FIGHTER,
+    PLAYER_BULLET,
+    ENEMY_BULLET
 };

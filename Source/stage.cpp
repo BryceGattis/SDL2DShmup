@@ -23,7 +23,7 @@ void spawn_enemies(Stage& stage)
     }
     stage.spawn_timer = 40;
 
-    Entity* enemy = new Entity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY], 90);
+    Entity* enemy = new Entity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY_FIGHTER], 90);
 
     if (stage.fighters.tail)
     {
