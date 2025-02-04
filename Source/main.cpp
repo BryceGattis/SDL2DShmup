@@ -17,13 +17,15 @@ int main(int argc, char* argv[])
     const Application app = init_sdl();
     
     SDL_Texture* player_texture = load_bitmap(app.renderer, "resources/spaceShips_001.bmp");
-    SDL_Texture* bullet_texture = load_bitmap(app.renderer, "resources/spaceMissiles_037.bmp");
+    SDL_Texture* player_bullet_texture = load_bitmap(app.renderer, "resources/spaceMissiles_037.bmp");
     SDL_Texture* enemy_texture = load_bitmap(app.renderer, "resources/enemyBlack1.bmp");
+    SDL_Texture* enemy_bullet_texture = load_bitmap(app.renderer, "resources/spaceMissiles_039.bmp");
     
     std::map<EntityType, SDL_Texture*> textures;
     textures[EntityType::PLAYER_FIGHTER] = player_texture;
-    textures[EntityType::PLAYER_BULLET] = bullet_texture;
+    textures[EntityType::PLAYER_BULLET] = player_bullet_texture;
     textures[EntityType::ENEMY_FIGHTER] = enemy_texture;
+    textures[EntityType::ENEMY_BULLET] = enemy_bullet_texture;
 
     PressedInputs pressed_inputs = PressedInputs();
 
