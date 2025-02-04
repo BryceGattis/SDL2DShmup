@@ -1,7 +1,3 @@
 ﻿#pragma once
 
-class math
-{
-public:
-    
-};
+void get_slope(int x1, int y1, int x2, int y2, int *dx, int *dy);
