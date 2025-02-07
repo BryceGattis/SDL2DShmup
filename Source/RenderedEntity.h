@@ -1,9 +1,13 @@
 ﻿#pragma once
+#include <algorithm>
+
+#include <SDL_render.h>
+
 #include "Entity.h"
 
 class RenderedEntity : public Entity
 {
-private:
+public:
     int width;
     int height;
 
@@ -13,12 +17,13 @@ private:
     SDL_Texture* texture;
     int texture_angle;
 
+    RenderedEntity* next = nullptr;
+
     RenderedEntity(const int x, const int y, const int dx, const int dy, SDL_Texture* texture, int texture_angle) : Entity(x, y, dx, dy), texture(texture), texture_angle(texture_angle)
     {
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     }
-
-public:
+    
     bool collides_with(const RenderedEntity* other) const
     {
         if (other == nullptr)

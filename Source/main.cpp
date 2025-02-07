@@ -9,6 +9,7 @@
 #include "draw.h"
 #include "init.h"
 #include "input.h"
+#include "RenderedEntity.h"
 #include "stage.h"
 #include "structs.h"
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
 
     PressedInputs pressed_inputs = PressedInputs();
 
-    Entity player = Entity(100, 100, 4, 4, player_texture, -90);
+    RenderedEntity player = RenderedEntity(100, 100, 4, 4, player_texture, -90);
     Entity enemy_spawner = Entity(SCREEN_WIDTH - 100, 100, 0, 4);
     
     Stage stage = Stage(&enemy_spawner, textures);

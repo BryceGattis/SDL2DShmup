@@ -15,7 +15,7 @@ SDL_Texture* load_bitmap(SDL_Renderer* renderer, std::string path)
     return texture;
 }
 
-void blit(SDL_Renderer* renderer, Entity entity)
+void blit(SDL_Renderer* renderer, RenderedEntity entity)
 {
     SDL_Rect dest;
 

@@ -3,7 +3,7 @@
 #include "defs.h"
 #include "draw.h"
 
-void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
+void logic(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
 {
     spawn_enemies(stage);
     do_player(player, stage, pressed_inputs);
@@ -11,7 +11,7 @@ void logic(Entity &player, Stage &stage, PressedInputs pressed_inputs)
     do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
-    do_enemies(player, stage);
+    do_enemies(stage);
     constrain_player(player);
 }
 
@@ -24,7 +24,7 @@ void spawn_enemies(Stage& stage)
     }
     stage.spawn_timer = 40;
 
-    Entity* enemy = new Entity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY_FIGHTER], 90);
+    RenderedEntity* enemy = new RenderedEntity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY_FIGHTER], 90);
 
     if (stage.fighters.tail)
     {
@@ -40,7 +40,7 @@ void spawn_enemies(Stage& stage)
 }
 
 
-void do_player(Entity &player, Stage &stage, PressedInputs pressed_inputs)
+void do_player(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
 {
     if (player.reload > 0)
     {
@@ -72,8 +72,8 @@ void do_bullets(Stage &stage)
 {
     if (!stage.bullets.head)
         return;
-    Entity* bullet = stage.bullets.head;
-    Entity* prev = nullptr;
+    RenderedEntity* bullet = stage.bullets.head;
+    RenderedEntity* prev = nullptr;
     while (bullet)
     {
         bullet->x += bullet->dx;
@@ -108,10 +108,10 @@ void do_collision_checks(Stage& stage)
 {
     if (!stage.bullets.head)
         return;
-    Entity* bullet = stage.bullets.head;
+    RenderedEntity* bullet = stage.bullets.head;
     while (bullet)
     {
-        Entity* fighter = stage.fighters.head;
+        RenderedEntity* fighter = stage.fighters.head;
         while (fighter)
         {
             if (bullet->collides_with(fighter))
@@ -139,8 +139,8 @@ void do_fighters(Stage& stage)
 {
     if (!stage.fighters.head)
         return;
-    Entity* fighter = stage.fighters.head;
-    Entity* prev = nullptr;
+    RenderedEntity* fighter = stage.fighters.head;
+    RenderedEntity* prev = nullptr;
     while (fighter)
     {
         fighter->x += fighter->dx;
@@ -171,21 +171,21 @@ void do_fighters(Stage& stage)
     }
 }
 
-void do_enemies(Entity player, Stage& stage)
+void do_enemies(Stage& stage)
 {
     if (!stage.fighters.head)
         return;
-    Entity* fighter = stage.fighters.head;
+    RenderedEntity* fighter = stage.fighters.head;
     while (fighter)
     {
-        enemy_fire_bullet(player, fighter, stage);
+        enemy_fire_bullet(fighter, stage);
         fighter = fighter->next;
     }
 }
 
-void enemy_fire_bullet(Entity player, Entity *enemy, Stage &stage)
+void enemy_fire_bullet(Entity *enemy, Stage &stage)
 {
-    Entity* bullet = new Entity(enemy->x, enemy->y, 0, 0, stage.textures[EntityType::ENEMY_BULLET], 90);
+    RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, stage.textures[EntityType::ENEMY_BULLET], 90);
     
     if (stage.bullets.tail)
     {
@@ -201,7 +201,7 @@ void enemy_fire_bullet(Entity player, Entity *enemy, Stage &stage)
 }
 
 
-void constrain_player(Entity& player)
+void constrain_player(RenderedEntity& player)
 {
     if (player.x < 0)
     {
@@ -225,14 +225,14 @@ void constrain_player(Entity& player)
 
 
 
-void draw(Application app, Entity player, Stage stage)
+void draw(Application app, RenderedEntity player, Stage stage)
 {
     draw_player(app, player);
     draw_bullets(app, stage);
     draw_enemies(app, stage);
 }
 
-void draw_player(Application app, Entity player)
+void draw_player(Application app, RenderedEntity player)
 {
     blit(app.renderer, player);
 }
@@ -241,7 +241,7 @@ void draw_bullets(Application app, Stage stage)
 {
     if (!stage.bullets.head)
         return;
-    Entity* bullet = stage.bullets.head;
+    RenderedEntity* bullet = stage.bullets.head;
     while (bullet)
     {
         blit(app.renderer, *bullet);
@@ -253,7 +253,7 @@ void draw_enemies(Application app, Stage stage)
 {
     if (!stage.fighters.head)
         return;
-    Entity* fighter = stage.fighters.head;
+    RenderedEntity* fighter = stage.fighters.head;
     while (fighter)
     {
         blit(app.renderer, *fighter);

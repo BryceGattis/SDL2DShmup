@@ -81,11 +81,11 @@ void handle_key_up(SDL_KeyboardEvent *event, PressedInputs &pressed_inputs)
     }
 }
 
-void fire_bullet(Entity &player, Stage &stage)
+void fire_bullet(RenderedEntity &player, Stage &stage)
 {
     player.reload = 8;
     
-    Entity* bullet = new Entity(player.x, player.y, PLAYER_BULLET_SPEED, 0, stage.textures[EntityType::PLAYER_BULLET], 90);
+    RenderedEntity* bullet = new RenderedEntity(player.x, player.y, PLAYER_BULLET_SPEED, 0, stage.textures[EntityType::PLAYER_BULLET], 90);
     
     if (stage.bullets.tail)
     {
