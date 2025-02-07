@@ -11,6 +11,7 @@ public:
     int width;
     int height;
 
+    bool is_player_friendly;
     int health = 1;
     int reload = 0;
 
@@ -19,7 +20,7 @@ public:
 
     RenderedEntity* next = nullptr;
 
-    RenderedEntity(const int x, const int y, const int dx, const int dy, SDL_Texture* texture, int texture_angle) : Entity(x, y, dx, dy), texture(texture), texture_angle(texture_angle)
+    RenderedEntity(const int x, const int y, const int dx, const int dy, bool is_player_friendly, SDL_Texture* texture, int texture_angle) : Entity(x, y, dx, dy), is_player_friendly(is_player_friendly),texture(texture), texture_angle(texture_angle)
     {
         SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     }

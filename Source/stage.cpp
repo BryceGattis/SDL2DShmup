@@ -2,6 +2,7 @@
 
 #include "defs.h"
 #include "draw.h"
+#include "math.h"
 
 void logic(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
 {
@@ -24,7 +25,7 @@ void spawn_enemies(Stage& stage)
     }
     stage.spawn_timer = 40;
 
-    RenderedEntity* enemy = new RenderedEntity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, stage.textures[EntityType::ENEMY_FIGHTER], 90);
+    RenderedEntity* enemy = new RenderedEntity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, false, stage.textures[EntityType::ENEMY_FIGHTER], 90);
 
     if (stage.fighters.tail)
     {
@@ -114,7 +115,7 @@ void do_collision_checks(Stage& stage)
         RenderedEntity* fighter = stage.fighters.head;
         while (fighter)
         {
-            if (bullet->collides_with(fighter))
+            if (bullet->is_player_friendly != fighter->is_player_friendly && bullet->collides_with(fighter))
             {
                 bullet->health = 0;
                 fighter->health = 0;
@@ -185,7 +186,7 @@ void do_enemies(Stage& stage)
 
 void enemy_fire_bullet(Entity *enemy, Stage &stage)
 {
-    RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, stage.textures[EntityType::ENEMY_BULLET], 90);
+    RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, false, stage.textures[EntityType::ENEMY_BULLET], 90);
     
     if (stage.bullets.tail)
     {

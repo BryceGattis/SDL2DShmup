@@ -85,7 +85,7 @@ void fire_bullet(RenderedEntity &player, Stage &stage)
 {
     player.reload = 8;
     
-    RenderedEntity* bullet = new RenderedEntity(player.x, player.y, PLAYER_BULLET_SPEED, 0, stage.textures[EntityType::PLAYER_BULLET], 90);
+    RenderedEntity* bullet = new RenderedEntity(player.x, player.y, PLAYER_BULLET_SPEED, 0, true, stage.textures[EntityType::PLAYER_BULLET], 90);
     
     if (stage.bullets.tail)
     {
