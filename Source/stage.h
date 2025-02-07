@@ -18,6 +18,6 @@ void do_bullets(Stage &stage);
 void do_collision_checks(Stage &stage);
 void do_enemy_spawner(Stage &stage);
 void do_fighters(Stage &stage);
-void do_enemies(Stage &stage);
-void enemy_fire_bullet(Entity *enemy, Stage &stage);
+void do_enemies(RenderedEntity player, Stage &stage);
+void enemy_fire_bullet(RenderedEntity player, RenderedEntity *enemy, Stage &stage);
 void constrain_player(RenderedEntity &player);

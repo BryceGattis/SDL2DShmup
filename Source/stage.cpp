@@ -1,5 +1,7 @@
 ﻿#include "stage.h"
 
+#include <iostream>
+
 #include "defs.h"
 #include "draw.h"
 #include "math.h"
@@ -12,7 +14,7 @@ void logic(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
     do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
-    do_enemies(stage);
+    do_enemies(player, stage);
     constrain_player(player);
 }
 
@@ -172,21 +174,35 @@ void do_fighters(Stage& stage)
     }
 }
 
-void do_enemies(Stage& stage)
+void do_enemies(RenderedEntity player, Stage& stage)
 {
     if (!stage.fighters.head)
         return;
     RenderedEntity* fighter = stage.fighters.head;
     while (fighter)
     {
-        enemy_fire_bullet(fighter, stage);
+        if (fighter->reload == 0)
+        {
+            enemy_fire_bullet(player, fighter, stage);
+        }
+        else
+        {
+            fighter->reload--;
+        }
         fighter = fighter->next;
     }
 }
 
-void enemy_fire_bullet(Entity *enemy, Stage &stage)
+void enemy_fire_bullet(RenderedEntity player, RenderedEntity *enemy, Stage &stage)
 {
-    RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, false, stage.textures[EntityType::ENEMY_BULLET], 90);
+    enemy->reload = 120;
+    RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, false, stage.textures[EntityType::ENEMY_BULLET], -90);
+
+    std::cout << player.x << " " << player.y << std::endl;
+    
+    get_slope(enemy->x, enemy->y, player.x, player.y, &bullet->dx, &bullet->dy);
+    bullet->dx *= ENEMY_BULLET_SPEED;
+    bullet->dy *= ENEMY_BULLET_SPEED;
     
     if (stage.bullets.tail)
     {
