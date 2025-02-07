@@ -197,8 +197,6 @@ void enemy_fire_bullet(RenderedEntity player, RenderedEntity *enemy, Stage &stag
 {
     enemy->reload = 120;
     RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, false, stage.textures[EntityType::ENEMY_BULLET], -90);
-
-    std::cout << player.x << " " << player.y << std::endl;
     
     get_slope(enemy->x, enemy->y, player.x, player.y, &bullet->dx, &bullet->dy);
     bullet->dx *= ENEMY_BULLET_SPEED;

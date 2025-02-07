@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void get_slope(int x1, int y1, int x2, int y2, int* dx, int* dy)
+void get_slope(int x1, int y1, int x2, int y2, float* dx, float* dy)
 {
     int steps = std::max(abs(x1 - x2), abs(y1 - y2));
     if (steps == 0)
