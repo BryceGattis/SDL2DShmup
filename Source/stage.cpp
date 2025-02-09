@@ -27,7 +27,7 @@ void spawn_enemies(Stage& stage)
     }
     stage.spawn_timer = 40;
 
-    RenderedEntity* enemy = new RenderedEntity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, false, stage.textures[EntityType::ENEMY_FIGHTER], 90);
+    RenderedEntity* enemy = new RenderedEntity(stage.enemy_spawner->x, stage.enemy_spawner->y, -4, 0, false, stage.textures[EntityType::ENEMY_FIGHTER], 90, SHIP_WIDTH, SHIP_HEIGHT);
 
     if (stage.fighters.tail)
     {
