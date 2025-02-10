@@ -189,7 +189,8 @@ void do_collision_checks(Stage& stage)
 void do_enemy_spawner(Stage& stage)
 {
     stage.enemy_spawner->y += stage.enemy_spawner->dy;
-    if (stage.enemy_spawner->y > SCREEN_HEIGHT || stage.enemy_spawner->y < 0)
+    // TODO: Used spawn class height to ensure they are never spawned offscreen at all.
+    if (stage.enemy_spawner->y + 30 > SCREEN_HEIGHT || stage.enemy_spawner->y < 0)
     {
         stage.enemy_spawner->dy *= -1;
     }
