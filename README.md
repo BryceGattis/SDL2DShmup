@@ -1,7 +1,7 @@
 # SDL2DShmup
 A basic 2D shoot 'em up style game made with SDL.
 
-This version of the game is incomplete as enemies do not yet have the ability to shoot back at the player.
+This version of the game is fully playable. There are no UI elements, but the stage resets after ~2 seconds after death.
 
 ## Controls
 
@@ -11,13 +11,25 @@ Spacebar: Fire
 
 ## TODO
 
-- Implement enemies shooting
 - Scoring
 - Main Menu
 
 ## Dependencies
 
-[SDL 2](https://github.com/libsdl-org/SDL/tree/SDL2)
+[SDL 2](https://github.com/libsdl-org/SDL/tree/SDL2
+[CMake](https://cmake.org)
+
+## Building
+
+To generate the build system for your current platform run:
+`cmake . -D CMAKE_PREFIX_PATH=<PATH TO SDL2 install>`
+
+To generate the .exe run:
+`cmake --build .`
+
+Lastly to run the executable, from the root directory run:
+`./Debug/SDL2DShmup.exe`
+
 
 ## Notes
 
