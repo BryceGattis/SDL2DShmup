@@ -16,7 +16,8 @@ Spacebar: Fire
 
 ## Dependencies
 
-[SDL 2](https://github.com/libsdl-org/SDL/tree/SDL2
+[SDL 2](https://github.com/libsdl-org/SDL/tree/SDL2)
+
 [CMake](https://cmake.org)
 
 ## Building
