@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     RenderedEntity player = RenderedEntity(100, 100, 4, 4, true, player_texture, -90, SHIP_WIDTH, SHIP_HEIGHT);
     Entity enemy_spawner = Entity(SCREEN_WIDTH - 100, 100, 0, 4);
     
-    Stage stage = Stage(&enemy_spawner, textures);
+    Stage stage = Stage(&player, &enemy_spawner, textures);
     
     
     while (true)
@@ -43,8 +43,8 @@ int main(int argc, char* argv[])
         
         handle_input(pressed_inputs);
 
-        logic(player, stage, pressed_inputs);
-        draw(app, player, stage);
+        logic(stage, pressed_inputs);
+        draw(app, stage);
 
         SDL_RenderPresent(app.renderer);
 

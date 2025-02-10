@@ -6,16 +6,16 @@
 #include "draw.h"
 #include "math.h"
 
-void logic(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
+void logic(Stage &stage, PressedInputs pressed_inputs)
 {
     spawn_enemies(stage);
-    do_player(player, stage, pressed_inputs);
+    do_player(stage, pressed_inputs);
     do_bullets(stage);
     do_collision_checks(stage);
     do_enemy_spawner(stage);
     do_fighters(stage);
-    do_enemies(player, stage);
-    constrain_player(player);
+    do_enemies(stage);
+    constrain_player(stage);
 }
 
 void spawn_enemies(Stage& stage)
@@ -43,31 +43,40 @@ void spawn_enemies(Stage& stage)
 }
 
 
-void do_player(RenderedEntity &player, Stage &stage, PressedInputs pressed_inputs)
+void do_player(Stage &stage, PressedInputs pressed_inputs)
 {
-    if (player.reload > 0)
+    if (stage.player == nullptr)
     {
-        player.reload--;
+        return;
+    }
+    if (stage.player->health <= 0)
+    {
+        stage.player = nullptr;
+        return;
+    }
+    if (stage.player->reload > 0)
+    {
+        stage.player->reload--;
     }
     if (pressed_inputs.up)
     {
-        player.y -= player.dy;
+        stage.player->y -= stage.player->dy;
     }
     if (pressed_inputs.down)
     {
-        player.y += player.dy;
+        stage.player->y += stage.player->dy;
     }
     if (pressed_inputs.left)
     {
-        player.x -= player.dx;
+        stage.player->x -= stage.player->dx;
     }
     if (pressed_inputs.right)
     {
-        player.x += player.dx;
+        stage.player->x += stage.player->dx;
     }
-    if (pressed_inputs.fire && player.reload == 0)
+    if (pressed_inputs.fire && stage.player->reload == 0)
     {
-        fire_bullet(player, stage);
+        fire_bullet(*stage.player, stage);
     }
 }
 
@@ -114,6 +123,14 @@ void do_collision_checks(Stage& stage)
     RenderedEntity* bullet = stage.bullets.head;
     while (bullet)
     {
+        // Check for enemy bullet and player collision
+        if (stage.player && bullet->is_player_friendly != stage.player->is_player_friendly && bullet->collides_with(stage.player))
+        {
+            bullet->health = 0;
+            stage.player->health = 0;
+        }
+        
+        // Check for player bullet and enemy collision
         RenderedEntity* fighter = stage.fighters.head;
         while (fighter)
         {
@@ -174,16 +191,16 @@ void do_fighters(Stage& stage)
     }
 }
 
-void do_enemies(RenderedEntity player, Stage& stage)
+void do_enemies(Stage& stage)
 {
     if (!stage.fighters.head)
         return;
     RenderedEntity* fighter = stage.fighters.head;
     while (fighter)
     {
-        if (fighter->reload == 0)
+        if (stage.player && fighter->reload == 0)
         {
-            enemy_fire_bullet(player, fighter, stage);
+            enemy_fire_bullet(fighter, stage);
         }
         else
         {
@@ -193,12 +210,12 @@ void do_enemies(RenderedEntity player, Stage& stage)
     }
 }
 
-void enemy_fire_bullet(RenderedEntity player, RenderedEntity *enemy, Stage &stage)
+void enemy_fire_bullet(RenderedEntity *enemy, Stage &stage)
 {
     enemy->reload = 120;
     RenderedEntity* bullet = new RenderedEntity(enemy->x, enemy->y, 0, 0, false, stage.textures[EntityType::ENEMY_BULLET], -90);
     
-    get_slope(enemy->x, enemy->y, player.x, player.y, &bullet->dx, &bullet->dy);
+    get_slope(enemy->x, enemy->y, stage.player->x, stage.player->y, &bullet->dx, &bullet->dy);
     bullet->dx *= ENEMY_BULLET_SPEED;
     bullet->dy *= ENEMY_BULLET_SPEED;
     
@@ -216,40 +233,43 @@ void enemy_fire_bullet(RenderedEntity player, RenderedEntity *enemy, Stage &stag
 }
 
 
-void constrain_player(RenderedEntity& player)
+void constrain_player(Stage &stage)
 {
-    if (player.x < 0)
+    if (!stage.player)
     {
-        player.x = 0;
+        return;
     }
-    if (player.x + player.width > SCREEN_WIDTH)
+    if (stage.player->x < 0)
     {
-        player.x = SCREEN_WIDTH - player.width;
+        stage.player->x = 0;
     }
-    if (player.y < 0)
+    if (stage.player->x + stage.player->width > SCREEN_WIDTH)
     {
-        player.y = 0;
+        stage.player->x = SCREEN_WIDTH - stage.player->width;
     }
-    if (player.y + player.height > SCREEN_HEIGHT)
+    if (stage.player->y < 0)
     {
-        player.y = SCREEN_HEIGHT - player.height;
+        stage.player->y = 0;
+    }
+    if (stage.player->y + stage.player->height > SCREEN_HEIGHT)
+    {
+        stage.player->y = SCREEN_HEIGHT - stage.player->height;
     }
 }
 
 
-
-
-
-void draw(Application app, RenderedEntity player, Stage stage)
+void draw(Application app, Stage stage)
 {
-    draw_player(app, player);
+    draw_player(app, stage);
     draw_bullets(app, stage);
     draw_enemies(app, stage);
 }
 
-void draw_player(Application app, RenderedEntity player)
+void draw_player(Application app, Stage stage)
 {
-    blit(app.renderer, player);
+    if (!stage.player)
+        return;
+    blit(app.renderer, *stage.player);
 }
 
 void draw_bullets(Application app, Stage stage)
