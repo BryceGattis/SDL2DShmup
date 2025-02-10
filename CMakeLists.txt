@@ -7,7 +7,7 @@ project(SDL2DShmup)
 find_package(SDL2 REQUIRED)
 
 # add the executable
-add_executable(SDL2DShmup Source/SDL2DShmup.cpp)
+add_executable(SDL2DShmup Source/main.cpp)
 
 # Link SDL to the main executable. SDL also takes care of including the source files.
 target_link_libraries(SDL2DShmup SDL2::SDL2 SDL2::SDL2main)
