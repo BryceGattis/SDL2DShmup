@@ -12,6 +12,8 @@ void draw_player(Application app, Stage stage);
 void draw_bullets(Application app, Stage stage);
 void draw_enemies(Application app, Stage stage);
 
+void init_player(Stage &stage);
+void reset_stage(Stage &stage);
 void spawn_enemies(Stage &stage);
 void do_player(Stage &stage, PressedInputs pressed_inputs);
 void do_bullets(Stage &stage);

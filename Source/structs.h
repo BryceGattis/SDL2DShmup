@@ -17,11 +17,12 @@ struct Stage
 {
     EntityList bullets = EntityList();
     EntityList fighters = EntityList();
-    RenderedEntity* player;
+    RenderedEntity* player = nullptr;
     
     std::map<EntityType, SDL_Texture*> textures;
 
     Entity* enemy_spawner;
     int spawn_timer = 0;
-    Stage(RenderedEntity *player, Entity *enemy_spawner, std::map<EntityType, SDL_Texture*> textures) : player(player), enemy_spawner(enemy_spawner), textures(textures) {}
+    int stage_reset_timer = 0;
+    Stage(Entity *enemy_spawner, std::map<EntityType, SDL_Texture*> textures) : enemy_spawner(enemy_spawner), textures(textures) {}
 };

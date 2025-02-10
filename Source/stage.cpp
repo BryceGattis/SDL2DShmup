@@ -8,6 +8,10 @@
 
 void logic(Stage &stage, PressedInputs pressed_inputs)
 {
+    if (!stage.player && --stage.stage_reset_timer <= 0)
+    {
+        reset_stage(stage);
+    }
     spawn_enemies(stage);
     do_player(stage, pressed_inputs);
     do_bullets(stage);
@@ -17,6 +21,40 @@ void logic(Stage &stage, PressedInputs pressed_inputs)
     do_enemies(stage);
     constrain_player(stage);
 }
+
+void init_player(Stage& stage)
+{
+    RenderedEntity* player = new RenderedEntity(100, 100, 4, 4, true, stage.textures[EntityType::PLAYER_FIGHTER], -90, SHIP_WIDTH, SHIP_HEIGHT);
+    stage.player = player;
+}
+
+void reset_stage(Stage& stage)
+{
+    RenderedEntity* bullet = stage.bullets.head;
+    while (bullet)
+    {
+        Entity* temp = bullet;
+        bullet = bullet->next;
+        delete(temp);
+    }
+    stage.bullets.head = nullptr;
+    stage.bullets.tail = nullptr;
+    
+    RenderedEntity* fighter = stage.fighters.head;
+    while (fighter)
+    {
+        Entity* temp = fighter;
+        fighter = fighter->next;
+        delete(temp);
+    }
+    stage.fighters.head = nullptr;
+    stage.fighters.tail = nullptr;
+    
+    init_player(stage);
+    
+    stage.stage_reset_timer = 120;
+}
+
 
 void spawn_enemies(Stage& stage)
 {
@@ -51,7 +89,9 @@ void do_player(Stage &stage, PressedInputs pressed_inputs)
     }
     if (stage.player->health <= 0)
     {
+        RenderedEntity* temp = stage.player;
         stage.player = nullptr;
+        delete(temp);
         return;
     }
     if (stage.player->reload > 0)

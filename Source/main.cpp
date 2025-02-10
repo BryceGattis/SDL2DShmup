@@ -29,11 +29,10 @@ int main(int argc, char* argv[])
     textures[EntityType::ENEMY_BULLET] = enemy_bullet_texture;
 
     PressedInputs pressed_inputs = PressedInputs();
-
-    RenderedEntity player = RenderedEntity(100, 100, 4, 4, true, player_texture, -90, SHIP_WIDTH, SHIP_HEIGHT);
+    
     Entity enemy_spawner = Entity(SCREEN_WIDTH - 100, 100, 0, 4);
     
-    Stage stage = Stage(&player, &enemy_spawner, textures);
+    Stage stage = Stage(&enemy_spawner, textures);
     
     
     while (true)
