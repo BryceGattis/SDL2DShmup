@@ -11,7 +11,10 @@ void get_slope(int x1, int y1, int x2, int y2, float* dx, float* dy)
         return;
     }
     *dx = x2 - x1;
-    *dx /= steps;
     *dy = y2 - y1;
-    *dy /= steps;
+
+    // Normalize the vector.
+    float magnitude = sqrt(pow(*dx, 2) + pow(*dy, 2));
+    *dx /= magnitude;
+    *dy /= magnitude;
 }
