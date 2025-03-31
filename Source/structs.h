@@ -24,5 +24,6 @@ struct Stage
     Entity* enemy_spawner;
     int spawn_timer = 0;
     int stage_reset_timer = 0;
+    int score = 0;
     Stage(Entity *enemy_spawner, std::map<EntityType, SDL_Texture*> textures) : enemy_spawner(enemy_spawner), textures(textures) {}
 };

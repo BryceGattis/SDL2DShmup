@@ -53,6 +53,7 @@ void reset_stage(Stage& stage)
     init_player(stage);
     
     stage.stage_reset_timer = 120;
+    stage.score = 0;
 }
 
 
@@ -178,6 +179,7 @@ void do_collision_checks(Stage& stage)
             {
                 bullet->health = 0;
                 fighter->health = 0;
+                stage.score++;
             }
             fighter = fighter->next;
         }
@@ -189,7 +191,7 @@ void do_collision_checks(Stage& stage)
 void do_enemy_spawner(Stage& stage)
 {
     stage.enemy_spawner->y += stage.enemy_spawner->dy;
-    // TODO: Used spawn class height to ensure they are never spawned offscreen at all.
+    // TODO: Use spawn class height to ensure they are never spawned offscreen at all.
     if (stage.enemy_spawner->y + 30 > SCREEN_HEIGHT || stage.enemy_spawner->y < 0)
     {
         stage.enemy_spawner->dy *= -1;
@@ -304,6 +306,36 @@ void draw(Application app, Stage stage)
     draw_player(app, stage);
     draw_bullets(app, stage);
     draw_enemies(app, stage);
+    draw_hud(app, stage);
+}
+
+void draw_hud(Application app, Stage stage)
+{
+    char buff[100];
+    int chars_written = snprintf(buff, sizeof(buff), "Score: %d", stage.score);
+    if (chars_written > 0)
+    {
+        draw_text(app, stage, 0, 0, buff);
+    }
+}
+
+void draw_text(Application app, Stage stage, int x, int y, char* text_to_draw)
+{
+    int ascii_to_decimal_offset;
+    SDL_Rect current_rect;
+
+    for (int i = 0; i < strlen(text_to_draw); i++)
+    {
+        current_rect.w = GLYPH_SIZE;
+        current_rect.h = GLYPH_SIZE;
+        ascii_to_decimal_offset = text_to_draw[i] - ' ';
+        // Font was converted from ttf to bmp to simplify library usage using https://stmn.itch.io/font2bitmap
+        // Default settings of this tool put 19 items per row, so we need to calculate where our glyphs are on the grid.
+        current_rect.x = (ascii_to_decimal_offset % 19) * GLYPH_SIZE;
+        current_rect.y = ascii_to_decimal_offset / 19 * GLYPH_SIZE;
+        blit_rectangle(app.renderer, stage.textures[FONT_HUD], &current_rect, x, y);
+        x += GLYPH_SIZE;
+    }
 }
 
 void draw_player(Application app, Stage stage)

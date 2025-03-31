@@ -28,3 +28,15 @@ void blit(SDL_Renderer* renderer, RenderedEntity entity)
     SDL_RenderCopyEx(renderer, entity.texture, nullptr, &dest, entity.texture_angle, nullptr, SDL_FLIP_NONE);
 }
 
+void blit_rectangle(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect* src, int x, int y)
+{
+    SDL_Rect dest;
+
+    dest.w = src->w;
+    dest.h = src->h;
+    dest.x = x;
+    dest.y = y;
+
+    SDL_RenderCopy(renderer, texture, src, &dest);
+}
+

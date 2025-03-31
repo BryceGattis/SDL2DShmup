@@ -8,3 +8,5 @@
 
 #define PLAYER_BULLET_SPEED 16
 #define ENEMY_BULLET_SPEED 8
+
+#define GLYPH_SIZE 30

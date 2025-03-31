@@ -8,6 +8,8 @@ void draw(Application app, Stage stage);
 
 void logic(Stage &stage, PressedInputs pressed_inputs);
 
+void draw_hud(Application app, Stage stage);
+void draw_text(Application app, Stage stage, int x, int y, char* text_to_draw);
 void draw_player(Application app, Stage stage);
 void draw_bullets(Application app, Stage stage);
 void draw_enemies(Application app, Stage stage);
