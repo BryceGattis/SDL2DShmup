@@ -1,7 +1,8 @@
 # SDL2DShmup
 A basic 2D shoot 'em up style game made with SDL.
 
-This version of the game is fully playable. There are no UI elements, but the stage resets after ~2 seconds after death.
+This version of the game is fully playable. 
+There is a current score shown, and the stage resets after ~2 seconds after death.
 
 ## Controls
 
@@ -11,7 +12,11 @@ Spacebar: Fire
 
 ## TODO
 
-- Scoring
+- Make enemy spawning more irregular
+- Spawn some enemies with different bullet flying patterns
+- Add interesting background
+- SFX/Music
+- High Score
 - Main Menu
 
 ## Dependencies
@@ -38,6 +43,10 @@ For the .exe to launch on Windows as is, you need to copy the SDL `SDL2.dll` fil
 `SDLTest.exe` file prior to executing the `.exe`.
 
 ## Resources
+
+Fonts:
+
+- [Grotesque Bourgeoisie](https://fontlibrary.org/en/font/grotesque-bourgeoisie)
 
 The game's graphical assets are from the [Kenny Asset Packs](https://kenney.nl/assets). Specifically I'm using:
 
